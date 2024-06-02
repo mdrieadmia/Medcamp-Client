@@ -3,6 +3,7 @@ import { Button } from "@material-tailwind/react";
 import { ImSpinner9 } from "react-icons/im";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Signin = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -14,6 +15,9 @@ const Signin = () => {
     const loading = false
     return (
         <div>
+            <Helmet>
+                <title>Signin | Medcamp</title>
+            </Helmet>
             <div className="container mx-auto px-5 flex justify-center items-center flex-col md:flex-row">
                 <div className="w-full">
                     <img className="w-[70%] mx-auto pt-5" src="https://i.ibb.co/2h9zJvd/Corporate.png" alt="Login Image" />
@@ -36,14 +40,14 @@ const Signin = () => {
                             {errors.password && <span className="text-red-500">This field is required</span>}
 
                             <Button type="submit" disabled={loading} className="bg-green-500 normal-case px-3 py-3 text-[15px] font-semibold mt-7 mx-auto w-full flex justify-center items-center">
-                            {
-                               loading  ? <ImSpinner9 className="animate-spin"/> : 'Sign in'
-                            }    
+                                {
+                                    loading ? <ImSpinner9 className="animate-spin" /> : 'Sign in'
+                                }
                             </Button>
                         </form>
                         <div>
                             <h1 className="mt-5 font-medium">Don&apos;t have any account? <Link to={'/signup'} className="font-bold hover:text-green-500 duration-200">Signup</Link> </h1>
-                            <SocialLogin/>
+                            <SocialLogin />
                         </div>
                     </div>
                 </div>

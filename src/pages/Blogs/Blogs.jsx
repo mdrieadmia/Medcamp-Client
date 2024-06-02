@@ -1,14 +1,14 @@
 import { Helmet } from "react-helmet-async";
 
-const AddCamp = () => {
+const Blogs = () => {
     return (
         <div>
             <Helmet>
-                <title>Add Camp | Dashboard</title>
+                <title>Blogs | Medcamp</title>
             </Helmet>
-            <h1>Add a Camp</h1>
+            <h1>Blogs</h1>
         </div>
     );
 };
 
-export default AddCamp;
+export default Blogs;
