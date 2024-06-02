@@ -67,7 +67,7 @@ const Sidebar = () => {
                 </button>
             </div>
             <div
-                className={`z-10 md:fixed flex flex-col border-r-2 justify-between overflow-x-hidden w-64 space-y-6 px-2 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
+                className={`z-10 md:fixed flex flex-col border-r-2 bg-white justify-between overflow-x-hidden w-64 space-y-6 px-2 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
                     }  md:translate-x-0  transition duration-200 ease-in-out`}
             >
 
@@ -80,7 +80,7 @@ const Sidebar = () => {
                             isAdmin ?
                                 <>
                                     <NavLink to={'/dashboard/profile'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                                 <UserCircleIcon className="h-5 w-5 border-none activeIcon" />
                                             </ListItemPrefix>
@@ -88,7 +88,7 @@ const Sidebar = () => {
                                         </ListItem>
                                     </NavLink>
                                     <NavLink to={'/dashboard/add-camp'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                                 <FaPlus className="h-5 w-5" />
                                             </ListItemPrefix>
@@ -96,7 +96,7 @@ const Sidebar = () => {
                                         </ListItem>
                                     </NavLink>
                                     <NavLink to={'/dashboard/manage-camps'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                                 <RiListSettingsLine className="h-5 w-5" />
                                             </ListItemPrefix>
@@ -104,7 +104,7 @@ const Sidebar = () => {
                                         </ListItem>
                                     </NavLink>
                                     <NavLink to={'/dashboard/manage-registered-camps'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                                 <MdOutlineAppRegistration className="h-5 w-5" />
                                             </ListItemPrefix>
@@ -115,7 +115,7 @@ const Sidebar = () => {
                                 :
                                 <>
                                     <NavLink to={'/dashboard/analytics'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                                 <TbDeviceAnalytics className="h-5 w-5 border-none activeIcon" />
                                             </ListItemPrefix>
@@ -123,7 +123,7 @@ const Sidebar = () => {
                                         </ListItem>
                                     </NavLink>
                                     <NavLink to={'/dashboard/participant-profile'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                             <UserCircleIcon className="h-5 w-5 border-none activeIcon" />
                                             </ListItemPrefix>
@@ -131,7 +131,7 @@ const Sidebar = () => {
                                         </ListItem>
                                     </NavLink>
                                     <NavLink to={'/dashboard/registered-camps'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                             <MdOutlineAppRegistration className="h-5 w-5" />
                                             </ListItemPrefix>
@@ -139,7 +139,7 @@ const Sidebar = () => {
                                         </ListItem>
                                     </NavLink>
                                     <NavLink to={'/dashboard/payment-history'}>
-                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                             <ListItemPrefix>
                                                 <MdHistory className="h-5 w-5" />
                                             </ListItemPrefix>
@@ -152,7 +152,7 @@ const Sidebar = () => {
                         <hr className="my-2 border-blue-gray-50" />
 
                         <NavLink to={'/'}>
-                            <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                            <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                 <ListItemPrefix>
                                     <IoMdHome className="h-5 w-5" />
                                 </ListItemPrefix>
@@ -160,14 +160,14 @@ const Sidebar = () => {
                             </ListItem>
                         </NavLink>
                         <NavLink to={'/avaiable-camps'}>
-                            <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                            <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                                 <ListItemPrefix>
                                     <MdOutlineFactCheck className="h-5 w-5" />
                                 </ListItemPrefix>
                                 Avaiable Camps
                             </ListItem>
                         </NavLink>
-                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold text-sm">
+                        <ListItem className="hover:text-green-700 focus:text-green-700 active:text-green-700 hover:bg-green-100 active:bg-green-100 focus:bg-green-100 focus-visible:bg-green-100 font-semibold  ">
                             <ListItemPrefix>
                                 <PowerIcon className="h-5 w-5" />
                             </ListItemPrefix>
