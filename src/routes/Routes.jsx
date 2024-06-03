@@ -15,6 +15,10 @@ import Analytics from './../pages/Dashboard/Participant/Analytics/Analytics';
 import RegisteredCamps from './../pages/Dashboard/Participant/RegisteredCamps/RegisteredCamps';
 import PaymentHistory from './../pages/Dashboard/Participant/PaymentHistory/PaymentHistory';
 import Blogs from "../pages/Blogs/Blogs";
+import CampDetails from "../pages/CampDetails/CampDetails";
+import PrivateRoute from "./PrivetRoute";
+import OrganizerRoute from "./OrganizerRoute";
+import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
 
 const Routes = createBrowserRouter([
     {
@@ -35,6 +39,10 @@ const Routes = createBrowserRouter([
                 element : <Blogs/>
             },
             {
+                path : 'camp/details/:id',
+                element : <PrivateRoute><CampDetails/></PrivateRoute>
+            },
+            {
                 path : 'signin',
                 element : <Signin/>
             },
@@ -52,16 +60,20 @@ const Routes = createBrowserRouter([
         children : [
             // Organizer Paths
             {
-                path : 'profile',
+                path : 'organizer-profile',
                 element : <Profile/>
             },
             {
                 path : 'add-camp',
-                element : <AddCamp/>
+                element : <OrganizerRoute><AddCamp/></OrganizerRoute>
             },
             {
                 path : 'manage-camps',
                 element : <ManageCamps/>
+            },
+            {
+                path : 'camp/update/:id',
+                element : <UpdateCamp/>
             },
             {
                 path : 'manage-registered-camps',

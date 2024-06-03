@@ -4,10 +4,11 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { ImSpinner9 } from "react-icons/im";
 import imageUpload from "../../../../utils/utility";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const AddCamp = () => {
+    const axiosSecure = useAxiosSecure()
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [loading, setLoading] = useState(false)
     const handleAddCamp = async(data) => {
@@ -20,7 +21,7 @@ const AddCamp = () => {
             campName, campFees, campImageURL, participantCount, date, time, location, description, professionalName
         }
         try{
-            await axios.post('http://localhost:5000/camps', campData)
+            await axiosSecure.post('/camps', campData)
             toast.success('Camp added successfully')
             setLoading(false)
         }catch(err){
@@ -32,7 +33,7 @@ const AddCamp = () => {
             <Helmet>
                 <title>Add Camp | Dashboard</title>
             </Helmet>
-            <h1 className="text-xl font-bold text-green-500 text-center mt-16 mb-5">Add a Camp</h1>
+            <h1 className="text-xl font-bold text-green-500 text-center mt-10 mb-5">Add a Camp</h1>
             <div className="w-full h-full px-10 flex justify-center items-center">
                 <form onSubmit={handleSubmit(handleAddCamp)} className="w-[90%] md:w-[80%] mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -93,7 +94,7 @@ const AddCamp = () => {
                         </div>
                     </div>
 
-                    <Button type="submit" disabled={loading} className="bg-green-500 normal-case px-3 py-3 text-[15px] font-semibold mt-7 mx-auto w-full flex justify-center items-center">
+                    <Button type="submit" disabled={loading} className="bg-green-500 normal-case px-3 py-3 hover:bg-green-700 text-[15px] font-semibold mt-7 mx-auto w-[170px] flex justify-center items-center">
                         {
                             loading ? <ImSpinner9 className="animate-spin" /> : 'Add Camp'
                         }

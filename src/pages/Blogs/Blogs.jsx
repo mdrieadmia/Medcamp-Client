@@ -6,7 +6,9 @@ const Blogs = () => {
             <Helmet>
                 <title>Blogs | Medcamp</title>
             </Helmet>
-            <h1>Blogs</h1>
+            <div>
+                <h1 className="text-lg text-center pt-20 font-semibold">No Blog Posted Yet</h1>
+            </div>
         </div>
     );
 };

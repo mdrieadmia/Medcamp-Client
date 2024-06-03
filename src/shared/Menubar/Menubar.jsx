@@ -17,8 +17,10 @@ import { MdSpaceDashboard } from "react-icons/md";
 import TopBar from "../../components/TopBar/TopBar";
 import useAuth from "../../hooks/useAuth";
 import { ImSpinner9 } from "react-icons/im";
+import useOrganizer from "../../hooks/useOrganizer";
 
 const Menubar = () => {
+    const [isOrganizer] = useOrganizer()
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSecondMenuOpen, setIsSecondMenuOpen] = useState(false);
     const closeMenu = () => setIsMenuOpen(false);
@@ -46,7 +48,7 @@ const Menubar = () => {
             <div>
                 <TopBar />
             </div>
-            <Navbar className="mx-auto container px-5 py-3 rounded-none shadow-sm border-b border-b-green-50">
+            <Navbar className="mx-auto container px-5 py-3 rounded-none shadow-none border-b">
                 <div className="flex items-center justify-between text-blue-gray-900">
                     <Typography
                         as="a"
@@ -54,7 +56,7 @@ const Menubar = () => {
                         variant="h6"
                         className="mr-4 cursor-pointer py-1.5"
                     >
-                        <img className="w-32" src="https://i.ibb.co/k0QtjdT/logo.png" alt="Logo" />
+                        <img className="w-40" src="https://i.ibb.co/k0QtjdT/logo.png" alt="Logo" />
                     </Typography>
                     <div className="hidden lg:flex gap-5">
                         <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -101,13 +103,7 @@ const Menubar = () => {
                                                     className="flex items-center rounded-full mx-auto cursor-pointer"
                                                 >
                                                     <Button className="p-0 bg-transparent rounded-full">
-                                                        <Avatar
-                                                            variant="circular"
-                                                            size="sm"
-                                                            alt="tania andrew"
-                                                            className="border border-gray-900 p-0.5"
-                                                            src={user?.photoURL}
-                                                        />
+                                                        <img className="h-8 w-8 border-2 border-green-500 rounded-full" src={user.photoURL} alt="User Photo" />
                                                     </Button>
                                                 </div>
                                             </MenuHandler>
@@ -123,10 +119,12 @@ const Menubar = () => {
                                                         color="blue-gray"
                                                         className="p-1 font-medium"
                                                     >
-                                                        <Link to={'/profile'} className="flex gap-2 items-center hover:text-green-500 border-b-2 border-transparent font-semibold transition-colors">
+
+                                                        <button disabled className="flex gap-2 items-center">
                                                             <FaUser className="mb-1" />
-                                                            My Profile
-                                                        </Link>
+                                                            <span className="font-semibold">{user?.displayName}</span> 
+                                                        </button>
+
                                                     </Typography>
                                                     <Typography
                                                         as="li"
@@ -134,7 +132,7 @@ const Menubar = () => {
                                                         color="blue-gray"
                                                         className="p-1 font-medium"
                                                     >
-                                                        <Link to={'/dashboard'} className="flex gap-2 items-center hover:text-green-500 border-b-2 border-transparent font-semibold transition-colors">
+                                                        <Link to={`${isOrganizer ? "/dashboard/organizer-profile" : "/dashboard/analytics"}`} className="flex gap-2 items-center hover:text-green-500 border-b-2 border-transparent font-semibold transition-colors">
                                                             <MdSpaceDashboard className="text-lg -ml-[2px]" />
                                                             Dashboard
                                                         </Link>

@@ -1,4 +1,6 @@
 import { Helmet } from 'react-helmet-async';
+import Slider from '../../components/Slider/Slider';
+import PopularMedicalCamp from '../../components/PopularMedicalCamp/PopularMedicalCamp';
 
 
 const Home = () => {
@@ -7,8 +9,12 @@ const Home = () => {
         <Helmet>
             <title>Home | Medcamp</title>
         </Helmet>
-            <h1 className="text-2xl font-bold text-center mt-5 text-green-800"> Home </h1>
-            
+            <div>
+                <div className='container px-5 mx-auto'>
+                    <Slider/>
+                    <PopularMedicalCamp/>
+                </div>
+            </div>
         </div>
     );
 };

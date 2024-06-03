@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form"
 import { Button } from "@material-tailwind/react";
 import { ImSpinner9 } from "react-icons/im";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import imageUpload from "../../utils/utility";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
+    const navigate = useNavigate()
     const { createUser, updateUserProfile, isUserLoading, setIsUserLoading } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -21,6 +22,7 @@ const SignUp = () => {
             await updateUserProfile(name, photo_url)
             toast.success("Signup Successfull")
             setIsUserLoading(false)
+            navigate('/')
         } catch (err) {
             toast.error("Signup Failed")
             setIsUserLoading(false)

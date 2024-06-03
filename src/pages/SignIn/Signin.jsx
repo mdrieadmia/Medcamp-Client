@@ -2,14 +2,25 @@ import { useForm } from "react-hook-form"
 import { Button } from "@material-tailwind/react";
 import { ImSpinner9 } from "react-icons/im";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Signin = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const {signIn} = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const handleEmailSignIn = ({ data }) => {
-        console.log(data);
+    const from = location.state?.from?.pathname || "/";
+    const handleEmailSignIn = async( data ) => {
+        try{
+            await signIn(data.email, data.password)
+            toast.success("Logged in Successfully")
+            navigate(from)
+        }catch(err){
+            toast.error("Login Failed")
+        }
     }
 
     const loading = false

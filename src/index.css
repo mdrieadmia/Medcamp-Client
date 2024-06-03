@@ -11,3 +11,21 @@ body{
 .active{
     color: #4CAF50;
 }
+
+.swiper-button-prev{
+    left: -100px !important;
+}
+
+.swiper-button-next{
+    right: -100px !important;
+}
+
+.rdt_TableCell{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.sc-cwHqhk{
+    font-size: 16px;
+    font-weight: 700;
+}
