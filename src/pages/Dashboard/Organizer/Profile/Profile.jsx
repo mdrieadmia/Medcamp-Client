@@ -21,7 +21,7 @@ const Profile = () => {
         queryKey: ['organizer'],
         enabled: (!isUserLoading),
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/organizer-data/${user?.email}`)
+            const { data } = await axiosSecure.get(`/user-organizer/${user?.email}`)
             return data;
         }
     })

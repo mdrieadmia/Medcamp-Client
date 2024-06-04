@@ -60,7 +60,6 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
       if (currentUser) {
-        console.log(currentUser);
         const userInfo = {
           displayName : currentUser.displayName,
           email : currentUser.email,
@@ -76,11 +75,12 @@ const AuthProvider = ({ children }) => {
             .then(res => {
                 if (res.data.token) {
                     localStorage.setItem('access-token', res.data.token);
-                    setIsUserLoading(false);
                 }
             })
         axiosPublic.post('/users', userInfo)
-        .then(res => console.log(res))
+        .then(()=>{
+          setIsUserLoading(false);
+        })
     }
     else {
         localStorage.removeItem('access-token');
