@@ -8,21 +8,24 @@ import useAuth from "../../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { ImSpinner9 } from "react-icons/im";
+import UpdateOrganizerModal from "../../../../components/Dashboard/UpdateOrganizerModal/UpdateOrganizerModal";
+import imageUpload from "../../../../utils/utility";
 
 const ParticipantProfile = () => {
     const axiosSecure = useAxiosSecure()
-    const {user, isUserLoading} = useAuth()
+    const [processing, setProcessing] = useState(false)
+    const {user, isUserLoading, updateUserProfile} = useAuth()
     let [isOpen, setIsOpen] = useState(false)
      
-    const { data: participantInfo = {}, isLoading: isParticipantDataLoading } = useQuery({
-        queryKey: ['organizer'],
+    const { data: participantInfo = {}, isLoading: isParticipantDataLoading, refetch } = useQuery({
+        queryKey: ['participant'],
         enabled: (!isUserLoading),
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/user-participant/${user?.email}`)
             return data;
         }
     })
-    const { displayName, photoURL, contact } = participantInfo || {};
+    const { displayName, photoURL, contact, email : mainEmail } = participantInfo || {};
     const { phone, email } = contact ||{}
     function open() {
         setIsOpen(true)
@@ -32,9 +35,37 @@ const ParticipantProfile = () => {
         setIsOpen(false)
     }
 
-    const handleOrganizerUpdate = () => {
-        toast.success("Profile Updated")
-        close()
+    const handleUpdate = async(data) => {
+        setProcessing(true)
+        const {email, name, phone, photo,  } = data || {}
+        let userPhotoURL = photoURL;
+        const existImage = !!data.photo[0];
+        if(existImage){
+            const newURL = await imageUpload(photo[0])
+            userPhotoURL = newURL;
+        }
+
+        const updateUser = {
+            displayName : name,
+            email : mainEmail,
+            photoURL : userPhotoURL,
+            contact : {
+                phone : phone,
+                email : email,
+            }
+        }
+
+        try{
+            await updateUserProfile(name, userPhotoURL)
+            await axiosSecure.patch(`/user/${mainEmail}`, updateUser)
+            close()
+            refetch()
+            toast.success("Data updated successfully")
+            setProcessing(false)
+        }catch(err){
+            toast.error("Data update failed")
+            setProcessing(false)
+        }
     }
 
     if (isUserLoading || isParticipantDataLoading) return <div className="flex justify-center items-center mt-16"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
@@ -62,7 +93,7 @@ const ParticipantProfile = () => {
                         <p className="font-semibold flex mt-1 gap-2 items-center"> <FaPhone /> {phone === null ? "Not Given" : phone}</p>
                         <div className="flex justify-end">
                             <Button onClick={open} className='bg-green-500'>Update Profile</Button>
-                            {/* <UpdateOrganizerModal organizerInfo={organizerInfo} isOpen={isOpen} handleOrganizerUpdate={handleOrganizerUpdate} close={close} /> */}
+                            <UpdateOrganizerModal userInfo={participantInfo} isOpen={isOpen} handleUpdate={handleUpdate} close={close} processing={processing} />
                         </div>
                     </div>
                 </div>

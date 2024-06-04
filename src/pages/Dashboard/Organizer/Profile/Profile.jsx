@@ -9,15 +9,17 @@ import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import UpdateOrganizerModal from "../../../../components/Dashboard/UpdateOrganizerModal/UpdateOrganizerModal";
 import toast from "react-hot-toast";
+import imageUpload from "../../../../utils/utility";
 
 const Profile = () => {
     const axiosSecure = useAxiosSecure()
-    const { user, isUserLoading } = useAuth()
+    const { user, isUserLoading, updateUserProfile } = useAuth()
+    const [processing, setProcessing] = useState(false)
     let [isOpen, setIsOpen] = useState(false)
     // eslint-disable-next-line no-unused-vars
     const [isOrganizer, isOrganizerLoading] = useOrganizer()
 
-    const { data: organizerInfo = {}, isLoading: isOrganizerDataLoading } = useQuery({
+    const { data: organizerInfo = {}, isLoading: isOrganizerDataLoading, refetch } = useQuery({
         queryKey: ['organizer'],
         enabled: (!isUserLoading),
         queryFn: async () => {
@@ -26,7 +28,7 @@ const Profile = () => {
         }
     })
 
-    const { displayName, photoURL, contact } = organizerInfo || {};
+    const { displayName, photoURL, email : mainEmail, contact } = organizerInfo || {};
     const { phone, email } = contact ||{}
 
     function open() {
@@ -37,11 +39,38 @@ const Profile = () => {
         setIsOpen(false)
     }
 
-    const handleOrganizerUpdate = () =>{
-        toast.success("Profile Updated")
-        close()
-    }
+    const handleUpdate = async(data) => {
+        setProcessing(true)
+        const {email, name, phone, photo,  } = data || {}
+        let userPhotoURL = photoURL;
+        const existImage = !!data.photo[0];
+        if(existImage){
+            const newURL = await imageUpload(photo[0])
+            userPhotoURL = newURL;
+        }
 
+        const updateUser = {
+            displayName : name,
+            email : mainEmail,
+            photoURL : userPhotoURL,
+            contact : {
+                phone : phone,
+                email : email,
+            }
+        }
+
+        try{
+            await updateUserProfile(name, userPhotoURL)
+            await axiosSecure.patch(`/user/${mainEmail}`, updateUser)
+            close()
+            refetch()
+            toast.success("Data updated successfully")
+            setProcessing(false)
+        }catch(err){
+            toast.error("Data update failed")
+            setProcessing(false)
+        }
+    }
     if (isOrganizerLoading || isOrganizerDataLoading) return <div className="flex justify-center items-center mt-16"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
 
     return (
@@ -68,7 +97,7 @@ const Profile = () => {
                             <p className="font-semibold flex mt-1 gap-2 items-center"> <FaPhone /> {email}</p>
                             <div className="flex justify-end">
                                 <Button onClick={open} className='bg-green-500'>Update Profile</Button>
-                                <UpdateOrganizerModal organizerInfo={organizerInfo} isOpen={isOpen} handleOrganizerUpdate={handleOrganizerUpdate} close={close} />
+                                <UpdateOrganizerModal userInfo={organizerInfo} isOpen={isOpen} handleUpdate={handleUpdate} close={close} processing={processing}/>
                             </div>
                         </div>
                     </div>

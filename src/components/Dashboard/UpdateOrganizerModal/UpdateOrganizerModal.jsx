@@ -3,12 +3,13 @@ import { Button } from '@material-tailwind/react';
 import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
+import { ImSpinner9 } from 'react-icons/im';
 
 
-const UpdateOrganizerModal = ({ isOpen, handleOrganizerUpdate, organizerInfo, close }) => {
+const UpdateOrganizerModal = ({ isOpen, handleUpdate, userInfo, close, processing }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { displayName, photoURL, contact } = organizerInfo || {};
+    const { displayName, photoURL, contact } = userInfo || {};
     const { email, phone} = contact || {};
     return (
         <>
@@ -41,7 +42,7 @@ const UpdateOrganizerModal = ({ isOpen, handleOrganizerUpdate, organizerInfo, cl
 
                                     <hr className='mt-8 ' />
                                     <div className='flex flex-col mt-2 justify-between'>
-                                        <form onSubmit={handleSubmit(handleOrganizerUpdate)} className="block w-[90%] mx-auto">
+                                        <form onSubmit={handleSubmit(handleUpdate)} className="block w-[90%] mx-auto">
                                             {/* Full Name */}
                                             <label className="block mt-3">Name</label>
                                             <input defaultValue={displayName} className="block border w-full px-5 py-2 mt-1" type="text" placeholder="Full Name" name="displayName"{...register("name", { required: true })} />
@@ -65,10 +66,9 @@ const UpdateOrganizerModal = ({ isOpen, handleOrganizerUpdate, organizerInfo, cl
                                             <div className='flex justify-between mt-5'>
                                                 <Button 
                                                     type="submit" 
-                                                    className="bg-green-500 normal-case px-3 py-3 text-[15px] font-semibold mx-auto flex justify-center items-center">
+                                                    className="bg-green-500 normal-case px-3 py-3 text-[15px] font-semibold mx-auto w-[80px] flex justify-center items-center">
                                                     {
-                                                        // isUserLoading ? <ImSpinner9 className="animate-spin" /> : 'Signup'
-                                                        'Update'
+                                                        processing ? <ImSpinner9 className="animate-spin" /> : 'Update'
                                                     }
                                                 </Button>
                                                 <Button 
@@ -76,7 +76,6 @@ const UpdateOrganizerModal = ({ isOpen, handleOrganizerUpdate, organizerInfo, cl
                                                     type="submit" 
                                                     className="bg-green-500 normal-case px-3 py-3 text-[15px] font-semibold  mx-auto flex justify-center items-center">
                                                     {
-                                                        // isUserLoading ? <ImSpinner9 className="animate-spin" /> : 'Signup'
                                                         'Cancel'
                                                     }
                                                 </Button>
@@ -95,8 +94,9 @@ const UpdateOrganizerModal = ({ isOpen, handleOrganizerUpdate, organizerInfo, cl
 
 UpdateOrganizerModal.propTypes = {
     isOpen: PropTypes.bool,
-    handleOrganizerUpdate: PropTypes.func,
+    processing: PropTypes.bool,
+    handleUpdate: PropTypes.func,
     close: PropTypes.func,
-    organizerInfo: PropTypes.object,
+    userInfo: PropTypes.object,
 };
 export default UpdateOrganizerModal;
