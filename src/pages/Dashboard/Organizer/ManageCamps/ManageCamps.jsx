@@ -37,7 +37,7 @@ const ManageCamps = () => {
                         toast.success(`Camp Deleted Succefully`)
                     }
                 } catch (err) {
-                    console.log(err);
+                    toast.error('Camp Delete Failed')
                 }
             }
         });
