@@ -78,7 +78,7 @@ const ParticipantProfile = () => {
             <div>
 
             </div>
-            <h1 className="text-xl font-bold text-green-500 text-center mt-10 mb-5">Organizer Profile</h1>
+            <h1 className="text-xl font-bold text-green-500 text-center mt-10 mb-5">Participant Profile</h1>
 
             <div>
                 <div className="max-w-[900px] mx-auto">

@@ -3,14 +3,14 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useCampDetails = (id) => {
     const axiosSecure = useAxiosSecure()
-    const { data: camp = {}, isLoading } = useQuery({
+    const { data: camp = {}, isLoading, refetch } = useQuery({
         queryKey: ['camp', id],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/camp/details/${id}`)
             return data;
         }
     })
-    return [camp, isLoading]
+    return [camp, isLoading, refetch]
 };
 
 export default useCampDetails;

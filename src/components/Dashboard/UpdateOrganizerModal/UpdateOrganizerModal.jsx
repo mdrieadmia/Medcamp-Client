@@ -39,8 +39,6 @@ const UpdateOrganizerModal = ({ isOpen, handleUpdate, userInfo, close, processin
                                 leaveTo='opacity-0 scale-95'
                             >
                                 <DialogPanel className='w-full max-w-md transform overflow-hidden md:ml-60 rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all'>
-
-                                    <hr className='mt-8 ' />
                                     <div className='flex flex-col mt-2 justify-between'>
                                         <form onSubmit={handleSubmit(handleUpdate)} className="block w-[90%] mx-auto">
                                             {/* Full Name */}
@@ -62,7 +60,6 @@ const UpdateOrganizerModal = ({ isOpen, handleUpdate, userInfo, close, processin
                                             <label className="mt-3 block">Phone</label>
                                             <input defaultValue={phone} className="block border w-full px-5 py-2 mt-1" type="text" placeholder="Phone" name="phone"{...register("phone", { required: true })} />
                                             {errors.phone && <span className="text-red-500">This field is required</span>}
-
                                             <div className='flex justify-between mt-5'>
                                                 <Button 
                                                     type="submit" 
@@ -73,7 +70,6 @@ const UpdateOrganizerModal = ({ isOpen, handleUpdate, userInfo, close, processin
                                                 </Button>
                                                 <Button 
                                                     onClick={close}
-                                                    type="submit" 
                                                     className="bg-green-500 normal-case px-3 py-3 text-[15px] font-semibold  mx-auto flex justify-center items-center">
                                                     {
                                                         'Cancel'

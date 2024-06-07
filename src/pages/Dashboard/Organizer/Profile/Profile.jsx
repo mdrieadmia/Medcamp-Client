@@ -71,6 +71,7 @@ const Profile = () => {
             setProcessing(false)
         }
     }
+    
     if (isOrganizerLoading || isOrganizerDataLoading) return <div className="flex justify-center items-center mt-16"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
 
     return (

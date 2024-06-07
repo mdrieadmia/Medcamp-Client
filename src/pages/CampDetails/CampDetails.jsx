@@ -3,15 +3,72 @@ import { FaCalendar, FaClock, FaDollarSign, FaLocationArrow, FaUserDoctor } from
 import { ImSpinner9 } from "react-icons/im";
 import { useParams } from "react-router-dom";
 import useCampDetails from "../../hooks/useCampDetails";
+import useOrganizer from "../../hooks/useOrganizer";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
+import JoinCampModal from "../../components/Dashboard/JoinCampModal/JoinCampModal";
+import toast from "react-hot-toast";
 
 const CampDetails = () => {
     const { id } = useParams()
-    const [camp, isLoading] = useCampDetails(id)
-    
+    const axiosSecure = useAxiosSecure()
+    const [isOpen, setIsOpen] = useState(false)
+    const [camp, isLoading, refetch] = useCampDetails(id)
+    const [processing, setProcessing] = useState(false)
+    const [isOrganizer, isOrganizerLoading] = useOrganizer()
+    const { user, isUserLoading } = useAuth()
+
+    function open() {
+        setIsOpen(true)
+    }
+
+    function close() {
+        setIsOpen(false)
+    }
+
+    const handleUpdate = async (data) => {
+        setProcessing(true)
+        const newRegistered = {
+            campId: camp._id,
+            campName: camp.campName,
+            campFees: camp.campFees,
+            campImageURL: camp.campImageURL,
+            participantCount: camp.participantCount + 1,
+            date: camp.date,
+            time: camp.time,
+            location: camp.location,
+            description: camp.description,
+            professionalName: camp.professionalName,
+            age: data.age,
+            gender: data.gender,
+            phone: data.phone,
+            emergencyContact: data.emergencyContact,
+            participantName: user.displayName,
+            participantEmail: user.email,
+            paymentStatus : "Unpaid",
+            confirmationStatus : "Pending"
+        }
+        try {
+            const { data } = await axiosSecure.post('/registered', newRegistered)
+            console.log(data);
+            if (data.insertedId) {
+                close()
+                setProcessing(false)
+                refetch()
+                toast.success("Applied Successfully. Please wait for confirmation.")
+            }
+        } catch (err) {
+            console.log(err);
+            toast.error("Join Failed")
+            setProcessing(false)
+        }
+    }
+
     return (
         <div>
             {
-                isLoading && <div className="flex justify-center items-center mt-10"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
+                isLoading && isOrganizerLoading && <div className="flex justify-center items-center mt-10"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
             }
             <div className="container mx-auto px-5 pb-16">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 pt-10">
@@ -50,7 +107,10 @@ const CampDetails = () => {
                                 <p className='mt-2 font-medium'>Total Participant - {camp.participantCount}</p>
                             </div>
                             <div className='mt-5'>
-                                <Button className='bg-green-500'>Join Now</Button>
+                                <Button onClick={open} disabled={isOrganizer} className='bg-green-500'>Join Now</Button>
+                            </div>
+                            <div>
+                                <JoinCampModal isOpen={isOpen} user={user} isUserLoading={isUserLoading} processing={processing} camp={camp} close={close} handleUpdate={handleUpdate} />
                             </div>
                         </div>
                     </div>
