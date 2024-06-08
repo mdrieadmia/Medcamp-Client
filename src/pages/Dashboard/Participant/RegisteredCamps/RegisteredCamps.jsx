@@ -4,22 +4,52 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { ImSpinner9 } from "react-icons/im";
 import RegisteredCampTable from "../../../../components/Dashboard/RegisteredCampTable/RegisteredCampTable";
+import Swal from "sweetalert2";
 
 const RegisteredCamps = () => {
     const axiosSecure = useAxiosSecure()
     const { user, isUserIsLoading } = useAuth;
 
-    const { data: registeredCamps = [], isLoading } = useQuery({
+    const { data: registeredCamps = [], isLoading, refetch } = useQuery({
         queryKey: ['registered', user],
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/registerd/mdriead.bd@gmail.com`)
             return data;
         }
     })
-    if (isUserIsLoading || isLoading )
-        { 
-            <div className="flex justify-center items-center mt-10"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
+
+    const handleDelete = (id) => {
+        try {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then(async(result) => {
+                if (result.isConfirmed) {
+                    const data = await axiosSecure.delete(`/registered/camp/${id}`)
+                    console.log(data);
+                    refetch()
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
+
+
+        } catch (err) {
+            console.log(err);
         }
+    }
+
+    if (isUserIsLoading || isLoading) {
+        <div className="flex justify-center items-center mt-10"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
+    }
     return (
         <div>
             <Helmet>
@@ -30,7 +60,7 @@ const RegisteredCamps = () => {
 
             }
             <div className="mx-5 md:mx-10 lg:mx-20 border">
-                <RegisteredCampTable registeredCamps={registeredCamps} />
+                <RegisteredCampTable registeredCamps={registeredCamps} handleDelete={handleDelete} />
             </div>
 
         </div>

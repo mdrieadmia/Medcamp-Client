@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DataTable from 'react-data-table-component';
 import { FaXmark } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-const RegisteredCampTable = ({ registeredCamps }) => {
+const RegisteredCampTable = ({ registeredCamps, handleDelete }) => {
 
     const columns = [
         {
@@ -29,10 +29,10 @@ const RegisteredCampTable = ({ registeredCamps }) => {
             name: 'Payment Status',
             selector: (camp) => <div>
                 {
-                    camp.paymentStatus === 'Unpaid' && <Link to={`/dashboard/payment/${camp.campFees}`}> <Button className='bg-gray-700 py-[5px] normal-case'>Pay</Button> </Link>
+                    camp.paymentStatus === 'Unpaid' && <Link to={`/dashboard/payment/${camp._id}`}> <Button className='bg-gray-700 py-[5px] px-[20px] normal-case'>Pay</Button> </Link>
                 }
                 {
-                    camp.paymentStatus === 'Paid' && <Button className='py-[5px] bg-green-500' disabled>Paid</Button>
+                    camp.paymentStatus === 'Paid' && <Button className='py-[5px] px-[18px] bg-green-500 normal-case' disabled>Paid</Button>
                 }
             </div>
         },
@@ -44,7 +44,10 @@ const RegisteredCampTable = ({ registeredCamps }) => {
             name: 'Cancel',
             selector: (camp) => <div>
                 {
-                    camp.paymentStatus === 'Unpaid' && <Button className='bg-red-500 py-[5px] px-[10px]'> <FaXmark /> </Button>
+                    camp.paymentStatus === 'Unpaid' ?
+                        <Button onClick={() => handleDelete(camp._id)} className='bg-red-500 py-[5px] px-[10px]'> <FaXmark /> </Button>
+                        :
+                        <Button disabled className='bg-red-500 py-[5px] px-[10px]'> <FaXmark /> </Button>
                 }
             </div>
         },
@@ -52,10 +55,10 @@ const RegisteredCampTable = ({ registeredCamps }) => {
             name: 'Feedback',
             selector: (camp) => <div>
                 {
-                    camp.paymentStatus === 'Unpaid' && <Link> <Button className='bg-gray-700 py-[5px] normal-case'>N/A</Button> </Link>
-                }
-                {
-                    camp.paymentStatus === 'Paid' && <Button className='py-[5px] bg-green-500' disabled>Feedback</Button>
+                    camp.paymentStatus === 'Unpaid' || camp.confirmationStatus === "Pending" ?
+                        <p className='text-white px-[38px] rounded-md bg-gray-700 py-[5px] normal-case'>N/A</p>
+                        :
+                        camp.paymentStatus === 'Paid' && camp.confirmationStatus === "Confirmed" && <Button className='py-[7px] normal-case bg-green-500'>Feedback</Button>
                 }
             </div>
         },
@@ -66,6 +69,7 @@ const RegisteredCampTable = ({ registeredCamps }) => {
 
 RegisteredCampTable.propTypes = {
     registeredCamps: PropTypes.array,
+    handleDelete: PropTypes.func,
 };
 
 export default RegisteredCampTable;
