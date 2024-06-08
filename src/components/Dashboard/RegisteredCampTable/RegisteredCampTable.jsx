@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import DataTable from 'react-data-table-component';
 import { FaXmark } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-const RegisteredCampTable = ({registeredCamps}) => {
+const RegisteredCampTable = ({ registeredCamps }) => {
+
     const columns = [
         {
             name: 'ID',
@@ -18,7 +19,6 @@ const RegisteredCampTable = ({registeredCamps}) => {
         {
             name: 'Camp Fees',
             selector: (camp) => <span>{`$ ${camp.campFees}`}</span>,
-            maxWidth: "200px"
 
         },
         {
@@ -28,8 +28,8 @@ const RegisteredCampTable = ({registeredCamps}) => {
         {
             name: 'Payment Status',
             selector: (camp) => <div>
-                {   
-                    camp.paymentStatus === 'Unpaid' && <Link> <Button className='bg-gray-700 py-[5px] normal-case'>Pay Now</Button> </Link> 
+                {
+                    camp.paymentStatus === 'Unpaid' && <Link to={`/dashboard/payment/${camp.campFees}`}> <Button className='bg-gray-700 py-[5px] normal-case'>Pay</Button> </Link>
                 }
                 {
                     camp.paymentStatus === 'Paid' && <Button className='py-[5px] bg-green-500' disabled>Paid</Button>
@@ -44,16 +44,23 @@ const RegisteredCampTable = ({registeredCamps}) => {
             name: 'Cancel',
             selector: (camp) => <div>
                 {
-                    camp.paymentStatus === 'Unpaid' && <Button className='bg-red-500 py-[5px] px-[10px]'> <FaXmark/> </Button>
+                    camp.paymentStatus === 'Unpaid' && <Button className='bg-red-500 py-[5px] px-[10px]'> <FaXmark /> </Button>
                 }
-            </div> 
+            </div>
         },
         {
             name: 'Feedback',
-            selector: (camp) => camp.confirmationStatus
+            selector: (camp) => <div>
+                {
+                    camp.paymentStatus === 'Unpaid' && <Link> <Button className='bg-gray-700 py-[5px] normal-case'>N/A</Button> </Link>
+                }
+                {
+                    camp.paymentStatus === 'Paid' && <Button className='py-[5px] bg-green-500' disabled>Feedback</Button>
+                }
+            </div>
         },
     ]
-    
+
     return <DataTable columns={columns} data={registeredCamps} fixedHeader highlightOnHover pagination />
 };
 
