@@ -5,8 +5,8 @@ const Footer = () => {
     return (
         <div className="w-full bg-green-50 py-12">
             <div className="container mx-auto px-5">
-                <div className="grid grid-cols-5">
-                    <div className="col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                    <div className="col-span-2 md:col-span-3 lg:col-span-2">
                         <div>
                             <img className="w-40" src="https://i.ibb.co/k0QtjdT/logo.png" alt="logo"/>
                         </div>
@@ -49,39 +49,42 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-xl font-semibold text-black inline-block">Services</h3>
+                        <h3 className="text-xl font-semibold text-black inline-block">Camps</h3>
                         <ul className="mt-5">
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Medical Camp</Link>
+                                <Link to={'/'}>Child Camp</Link>
                             </li>
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Helth Care</Link>
+                                <Link to={'/'}>Old Camp</Link>
                             </li>
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Hospitals</Link>
+                                <Link to={'/'}>Diabatic Camp</Link>
                             </li>
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Ambulance</Link>
+                                <Link to={'/'}>Health Care Camp</Link>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-xl font-semibold text-black inline-block">Services</h3>
+                        <h3 className="text-xl font-semibold text-black inline-block">Privecy Policy</h3>
                         <ul className="mt-5">
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Medical Camp</Link>
+                                <Link to={'/'}>Refund Policy</Link>
                             </li>
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Helth Care</Link>
+                                <Link to={'/'}>Get in touch</Link>
                             </li>
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Hospitals</Link>
+                                <Link to={'/'}>Cookie</Link>
                             </li>
                             <li className="text-sm font-medium mt-2 text-black hover:text-green-900 duration-200 cursor-pointer">
-                                <Link to={'/'}>Ambulance</Link>
+                                <Link to={'/'}>Privecy policy</Link>
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div className="pt-5 mt-10 text-center border-t border-dashed border-gray-500">
+                    <p>&copy;2024-2025 All Rights Reserved By MEDCAMP.</p>
                 </div>
             </div>
         </div>
