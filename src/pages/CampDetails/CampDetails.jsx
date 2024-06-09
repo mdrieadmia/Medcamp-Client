@@ -34,7 +34,7 @@ const CampDetails = () => {
             campName: camp.campName,
             campFees: camp.campFees,
             campImageURL: camp.campImageURL,
-            participantCount: camp.participantCount + 1,
+            participantCount: camp.participantCount,
             date: camp.date,
             time: camp.time,
             location: camp.location,
@@ -53,6 +53,8 @@ const CampDetails = () => {
             const { data } = await axiosSecure.post('/registered', newRegistered)
             console.log(data);
             if (data.insertedId) {
+                const updateCamp = {participantCount : camp.participantCount + 1}
+                await axiosSecure.patch(`/registered-camp/${id}`, updateCamp)
                 close()
                 setProcessing(false)
                 refetch()
