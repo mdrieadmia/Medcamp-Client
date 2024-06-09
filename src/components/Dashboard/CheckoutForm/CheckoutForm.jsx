@@ -4,15 +4,17 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import useAxiosSecure from './../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
+import { ImSpinner9 } from 'react-icons/im';
 
 
-const CheckoutForm = ({registeredCamp}) => {
+const CheckoutForm = ({registeredCamp, refetch}) => {
 
     const stripe = useStripe()
     const {user} = useAuth()
     const elements = useElements()
     const axiosSecure = useAxiosSecure()
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     const [clientSecret, setClientSecret] = useState('')
     const [transectionId, setTransectionId] = useState('')
 
@@ -25,6 +27,7 @@ const CheckoutForm = ({registeredCamp}) => {
 
     const handlePaymentSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
 
         if(!stripe || !elements){
             return
@@ -43,8 +46,10 @@ const CheckoutForm = ({registeredCamp}) => {
 
         if(error){
             setError(error?.message)
+            setLoading(false)
         }else{
             setError('')
+            setLoading(false)
         }
 
         const {paymentIntent, error : confimationError} = await stripe.confirmCardPayment(clientSecret, {
@@ -60,17 +65,26 @@ const CheckoutForm = ({registeredCamp}) => {
         if(confimationError){
             console.log(confimationError);
         }else{
-            console.log(paymentIntent);
             if(paymentIntent?.status === 'succeeded'){
-                console.log("Transection ID : ", paymentIntent.id);
                 setTransectionId(paymentIntent.id)
-                const updateCamp = {paymentStatus : 'Paid', participantCount : registeredCamp.participantCount+1}
-                const paymentCamp = {...registeredCamp, transectionId : transectionId}
+                const updateCamp = {paymentStatus : 'Paid', confirmationStatus: 'Confirmed', participantCount : registeredCamp.participantCount+1}
                 try{
-                    axiosSecure.patch(`/registered-camp/${registeredCamp._id}`, updateCamp)
+                    await axiosSecure.patch(`/registered-camp/${registeredCamp._id}`, updateCamp)
+                    refetch()
+                    const paymentCamp = {
+                        campId : registeredCamp.campId,
+                        campName : registeredCamp.campName,
+                        campFees : registeredCamp.campFees,
+                        participantEmail : registeredCamp.participantEmail,
+                        paymentStatus : "Paid",
+                        confirmationStatus : "Confirmed",
+                        transectionId : paymentIntent.id
+                    }
                     axiosSecure.post('/payment/camp', paymentCamp)
+                    setLoading(false)
                 }catch(err){
                     console.log(err);
+                    setLoading(false)
                 }
             }
         }
@@ -105,7 +119,11 @@ const CheckoutForm = ({registeredCamp}) => {
                 }
             </div>
             <Button className='bg-green-500 px-10 py-3 block mx-auto mt-5' type="submit" disabled={!stripe || !clientSecret || transectionId}>
-                Pay
+                {
+                    loading ? <span> <ImSpinner9 className='animate-spin'/> </span>
+                    : 
+                    <span>Pay</span>
+                }
             </Button>
         </form>
     );
@@ -113,6 +131,7 @@ const CheckoutForm = ({registeredCamp}) => {
 
 CheckoutForm.propTypes = {
     registeredCamp: PropTypes.object,
+    refetch: PropTypes.func,
 };
 
 export default CheckoutForm;

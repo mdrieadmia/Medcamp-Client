@@ -20,6 +20,7 @@ import PrivateRoute from "./PrivetRoute";
 import OrganizerRoute from "./OrganizerRoute";
 import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
 import Payment from "../pages/Dashboard/Participant/Payment/Payment";
+import Feedback from "../pages/Dashboard/Participant/Feedback/Feedback";
 
 const Routes = createBrowserRouter([
     {
@@ -100,6 +101,10 @@ const Routes = createBrowserRouter([
             {
                 path : 'payment-history',
                 element : <PaymentHistory/>
+            },
+            {
+                path : 'feedback',
+                element : <Feedback/>
             },
         ]
     }

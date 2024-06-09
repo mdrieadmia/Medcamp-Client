@@ -58,7 +58,7 @@ const RegisteredCampTable = ({ registeredCamps, handleDelete }) => {
                     camp.paymentStatus === 'Unpaid' || camp.confirmationStatus === "Pending" ?
                         <p className='text-white px-[38px] rounded-md bg-gray-700 py-[5px] normal-case'>N/A</p>
                         :
-                        camp.paymentStatus === 'Paid' && camp.confirmationStatus === "Confirmed" && <Button className='py-[7px] normal-case bg-green-500'>Feedback</Button>
+                        camp.paymentStatus === 'Paid' && camp.confirmationStatus === "Confirmed" && <Link to={'/dashboard/feedback'}><Button className='py-[7px] normal-case bg-green-500'>Feedback</Button> </Link>
                 }
             </div>
         },

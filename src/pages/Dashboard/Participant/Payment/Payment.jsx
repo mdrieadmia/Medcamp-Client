@@ -10,7 +10,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GETWAY_PK);
 const Payment = () => {
     const {fees}  = useParams();
     const axiosSecure = useAxiosSecure()
-    const {data : registeredCamp = {}, isLoading} = useQuery({
+    const {data : registeredCamp = {}, isLoading, refetch} = useQuery({
         queryKey : ['registeredCamp'],
         queryFn : async()=>{
             const {data} = await axiosSecure(`/registered-camp/${fees}`)
@@ -28,7 +28,7 @@ const Payment = () => {
             <h2 className='font-semibold text-center mt-20'>Please pay your join fees : ${registeredCamp?.campFees}</h2>
             <div className='max-w-[600px] mx-auto px-10 mt-10'>
                 <Elements stripe={stripePromise}>
-                    <CheckoutForm registeredCamp={registeredCamp} />
+                    <CheckoutForm registeredCamp={registeredCamp} refetch={refetch} />
                 </Elements>
             </div>
         </div>

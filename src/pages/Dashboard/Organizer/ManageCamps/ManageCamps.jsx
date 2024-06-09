@@ -12,6 +12,8 @@ const ManageCamps = () => {
     const [camps, isCampsLoading, refetch] = useCamps()
     let [isOpen, setIsOpen] = useState(false)
 
+    console.log(camps);
+
     function open() {
         setIsOpen(true)
     }

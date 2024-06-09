@@ -8,15 +8,19 @@ import Swal from "sweetalert2";
 
 const RegisteredCamps = () => {
     const axiosSecure = useAxiosSecure()
-    const { user, isUserIsLoading } = useAuth;
+    const { user, isUserLoading } = useAuth();
 
     const { data: registeredCamps = [], isLoading, refetch } = useQuery({
         queryKey: ['registered', user],
+        enabled: !!user,
         queryFn: async () => {
-            const { data } = await axiosSecure.get(`/registerd/mdriead.bd@gmail.com`)
+            const { data } = await axiosSecure.get(`/registerd/${user?.email}`)
+            console.log(data);
             return data;
         }
     })
+
+    console.log(registeredCamps);
 
     const handleDelete = (id) => {
         try {
@@ -47,7 +51,7 @@ const RegisteredCamps = () => {
         }
     }
 
-    if (isUserIsLoading || isLoading) {
+    if (isUserLoading || isLoading) {
         <div className="flex justify-center items-center mt-10"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
     }
     return (

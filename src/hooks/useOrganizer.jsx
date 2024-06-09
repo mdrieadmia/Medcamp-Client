@@ -12,7 +12,7 @@ const useOrganizer = () => {
         enabled: !isUserLoading,
         queryFn: async () => {
             const res = await axiosSecure.get(`/organizer/${user.email}`);
-            return res.data?.organizer;
+            return res.data.organizer;
         }
     })
     return [isOrganizer, isOrganizerLoading]
