@@ -9,6 +9,8 @@ Organizer Email : riead@gmail.com
 Organizer Password : Riead123*
 
 
+============= Applied Features ================
+ 
 ✅ This is a medical camp based website a participant can join a camp by this website.
 
 ✅ Firebase Authentication is used for vairfy an authentic user.
