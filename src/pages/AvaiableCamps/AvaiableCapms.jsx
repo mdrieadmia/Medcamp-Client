@@ -1,17 +1,35 @@
 import { Helmet } from "react-helmet-async";
-import useCamps from "../../hooks/useCamps";
 import CampCard from "../../components/CampCard/CampCard";
 import { ImSpinner9 } from "react-icons/im";
 import { useState } from "react";
 import { RiLayout4Fill } from "react-icons/ri";
 import { RiLayout2Fill } from "react-icons/ri";
-import { Option, Select } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const AvaiableCapms = () => {
-    const [camps, isCampsLoading] = useCamps()
+    const axiosPublic = useAxiosPublic()
+    const [search, setSearch] = useState('')
     const [layout, setLayout] = useState(true)
+
+    const { data: camps = [], isLoading: isCampsLoading } = useQuery({
+        queryFn: () => getCamps(),
+        queryKey: ['camps', search]
+    })
+    const getCamps = async () => {
+        const { data } = await axiosPublic.get(`/camps?search=${search}`)
+        return data;
+    }
+
     const handleToggleLayout = () => {
         setLayout(!layout)
+    }
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const search = e.target.search.value;
+        setSearch(search)
     }
     return (
         <div>
@@ -22,21 +40,13 @@ const AvaiableCapms = () => {
                 <div className="h-[200px] w-full bg-[url('https://i.postimg.cc/dtg0b5bL/Medical-Services-Banner.jpg')] bg-cover bg-center bg-no-repeat mb-10 rounded-lg">
                     <div className="h-full w-full bg-green-500 rounded-lg opacity-70">
                         <h1 className="text-2xl font-semibold text-center pt-7 text-white">Avaiable Camps</h1>
-                        <div className="flex justify-center items-center mt-7">
-                            <form className="flex flex-col md:flex-row gap-5">
-                                <div className="max-w-[400px] flex items-center gap-3">
-                                    <label className="text-nowrap">Sort By </label>
-                                    <Select className="bg-white opacity-100">
-                                        <Option>Most Registered</Option>
-                                        <Option>Camp Fees</Option>
-                                        <Option>Camp Name</Option>
-                                    </Select>
-                                </div>
+                        <div className="flex justify-center items-center mt-7 gap-5">
+                            <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-5">
                                 <div>
                                     <label> Search </label>
-                                    <input type="text" placeholder="Search Here" className="px-5 py-2 rounded-md" />
+                                    <input type="text" placeholder="Search Here" name="search" className="px-5 py-2 rounded-md" />
                                 </div>
-
+                                <Button type="submit">Search</Button>
                             </form>
                         </div>
                     </div>

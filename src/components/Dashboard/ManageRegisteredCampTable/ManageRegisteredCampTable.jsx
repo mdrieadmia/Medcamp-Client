@@ -1,10 +1,47 @@
 import { Button } from '@material-tailwind/react';
 import PropTypes from 'prop-types';
+import { useMemo, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { FaCheck } from 'react-icons/fa6';
+import styled from 'styled-components';
 
 
-const ManageRegisteredCampTable = ({allRegisteredCamps, handleCampDelete}) => {
+const ManageRegisteredCampTable = ({ allRegisteredCamps, handleCampDelete }) => {
+
+
+    const TextField = styled.input`
+    height: 32px;
+    width: 200px;
+    border-radius: 3px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 1px solid #e5e5e5;
+    padding: 0 32px 0 16px;
+    
+    &:hover {
+        cursor: pointer;
+    }
+    `;
+
+    const FilterComponent = ({ filterText, onFilter, onClear }) => (
+        <>
+            <TextField
+                id="search"
+                type="text"
+                placeholder="Filter By Name"
+                aria-label="Search Input"
+                value={filterText}
+                onChange={onFilter}
+            />
+            <Button className='px-5 py-2 mr-10 ml-3' type="button" onClick={onClear}>
+                X
+            </Button>
+        </>
+    );
+
+
     const columns = [
         {
             name: 'ID',
@@ -35,18 +72,51 @@ const ManageRegisteredCampTable = ({allRegisteredCamps, handleCampDelete}) => {
         },
         {
             name: 'Cancel',
-            selector: (camp) => <Button disabled={camp.paymentStatus === 'Paid' || camp.confirmationStatus === 'Confirmed'} onClick={()=>handleCampDelete(camp._id)} className='bg-red-500'> <FaCheck/> </Button>,
+            selector: (camp) => <Button disabled={camp.paymentStatus === 'Paid' || camp.confirmationStatus === 'Confirmed'} onClick={() => handleCampDelete(camp._id)} className='bg-red-500'> <FaCheck /> </Button>,
         },
-        
+
     ]
 
-    return <DataTable columns={columns} data={allRegisteredCamps} fixedHeader highlightOnHover pagination />
+
+    const [filterText, setFilterText] = useState('');
+    const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+    const filteredItems = allRegisteredCamps.filter(
+        item => item.campName && item.campName.toLowerCase().includes(filterText.toLowerCase()),
+    );
+
+    const subHeaderComponentMemo = useMemo(() => {
+        const handleClear = () => {
+            if (filterText) {
+                setResetPaginationToggle(!resetPaginationToggle);
+                setFilterText('');
+            }
+        };
+
+        return (
+            <FilterComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
+        );
+    }, [filterText, resetPaginationToggle]);
+
+
+
+    return <DataTable columns={columns}
+        data={filteredItems}
+        highlightOnHover
+        pagination
+        paginationResetDefaultPage={resetPaginationToggle}
+        subHeader
+        subHeaderComponent={subHeaderComponentMemo}
+        selectableRows
+        persistTableHead />
 };
 
 
 ManageRegisteredCampTable.propTypes = {
     allRegisteredCamps: PropTypes.array,
     handleCampDelete: PropTypes.func,
+    onFilter: PropTypes.func,
+    onClear: PropTypes.func,
+    filterText: PropTypes.string,
 };
 
 export default ManageRegisteredCampTable;
