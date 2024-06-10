@@ -30,7 +30,6 @@ const Feedback = () => {
         try {
             const { data } = await axiosSecure.post('/feedback', feedbackData)
             if (data.insertedId) {
-                console.log(data);
                 toast.success('Feedback submited successfully')
                 setLoading(false)
                 navigate('/dashboard/registered-camps')

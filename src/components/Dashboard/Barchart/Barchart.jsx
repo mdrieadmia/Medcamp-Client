@@ -10,7 +10,6 @@ const Barchart = () => {
         enabled: !!user,
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/registerd/${user?.email}`)
-            console.log(data);
             return data;
         }
     })

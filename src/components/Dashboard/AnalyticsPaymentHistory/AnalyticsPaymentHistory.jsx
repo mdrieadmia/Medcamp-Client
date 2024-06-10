@@ -11,7 +11,6 @@ const AnalyticsPaymentHistory = () => {
         enabled: !!user,
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/payment/camp/${user.email}`)
-            console.log(data);
             return data;
         }
     })
@@ -19,7 +18,6 @@ const AnalyticsPaymentHistory = () => {
     if (isUserIsLoading || isLoading) {
         return <div className="flex justify-center items-center mt-10"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
     }
-    console.log(paymentCamps);
     return (
 
         <div className="bg-green-50 rounded-lg h-full">

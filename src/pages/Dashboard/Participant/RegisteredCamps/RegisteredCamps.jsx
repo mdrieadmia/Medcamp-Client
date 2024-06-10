@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { ImSpinner9 } from "react-icons/im";
 import RegisteredCampTable from "../../../../components/Dashboard/RegisteredCampTable/RegisteredCampTable";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const RegisteredCamps = () => {
     const axiosSecure = useAxiosSecure()
@@ -15,12 +16,9 @@ const RegisteredCamps = () => {
         enabled: !!user,
         queryFn: async () => {
             const { data } = await axiosSecure.get(`/registerd/${user?.email}`)
-            console.log(data);
             return data;
         }
     })
-
-    console.log(registeredCamps);
 
     const handleDelete = (id) => {
         try {
@@ -34,8 +32,7 @@ const RegisteredCamps = () => {
                 confirmButtonText: "Yes, delete it!"
             }).then(async(result) => {
                 if (result.isConfirmed) {
-                    const data = await axiosSecure.delete(`/registered/camp/${id}`)
-                    console.log(data);
+                    await axiosSecure.delete(`/registered/camp/${id}`)
                     refetch()
                     Swal.fire({
                         title: "Deleted!",
@@ -47,7 +44,7 @@ const RegisteredCamps = () => {
 
 
         } catch (err) {
-            console.log(err);
+            toast.error("Delete Failed")
         }
     }
 

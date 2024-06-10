@@ -17,10 +17,7 @@ const ManageRegisteredCamps = () => {
         }
     })
 
-    console.log(allRegisteredCamps);
-
     const handleCampDelete = (id) => {
-        console.log(id);
         Swal.fire({
             title: "Confirm your deletation",
             text: "You won't be able to revert this!",

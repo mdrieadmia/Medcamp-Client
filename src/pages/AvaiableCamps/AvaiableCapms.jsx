@@ -23,7 +23,7 @@ const AvaiableCapms = () => {
                     <div className="h-full w-full bg-green-500 rounded-lg opacity-70">
                         <h1 className="text-2xl font-semibold text-center pt-7 text-white">Avaiable Camps</h1>
                         <div className="flex justify-center items-center mt-7">
-                            <form className="flex gap-5">
+                            <form className="flex flex-col md:flex-row gap-5">
                                 <div className="max-w-[400px] flex items-center gap-3">
                                     <label className="text-nowrap">Sort By </label>
                                     <Select className="bg-white opacity-100">

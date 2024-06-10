@@ -51,7 +51,6 @@ const CampDetails = () => {
         }
         try {
             const { data } = await axiosSecure.post('/registered', newRegistered)
-            console.log(data);
             if (data.insertedId) {
                 const updateCamp = {participantCount : camp.participantCount + 1}
                 await axiosSecure.patch(`/registered-camp/${id}`, updateCamp)
@@ -61,7 +60,6 @@ const CampDetails = () => {
                 toast.success("Applied Successfully. Please wait for confirmation.")
             }
         } catch (err) {
-            console.log(err);
             toast.error("Join Failed")
             setProcessing(false)
         }

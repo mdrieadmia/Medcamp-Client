@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import useAxiosSecure from './../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import { ImSpinner9 } from 'react-icons/im';
+import toast from 'react-hot-toast';
 
 
 const CheckoutForm = ({registeredCamp, refetch}) => {
@@ -63,7 +64,7 @@ const CheckoutForm = ({registeredCamp, refetch}) => {
         })
 
         if(confimationError){
-            console.log(confimationError);
+            toast.error(confimationError)
         }else{
             if(paymentIntent?.status === 'succeeded'){
                 setTransectionId(paymentIntent.id)
@@ -83,7 +84,6 @@ const CheckoutForm = ({registeredCamp, refetch}) => {
                     axiosSecure.post('/payment/camp', paymentCamp)
                     setLoading(false)
                 }catch(err){
-                    console.log(err);
                     setLoading(false)
                 }
             }

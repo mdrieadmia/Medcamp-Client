@@ -63,7 +63,7 @@ const Routes = createBrowserRouter([
             // Organizer Paths
             {
                 path : 'organizer-profile',
-                element : <Profile/>
+                element : <OrganizerRoute><Profile/></OrganizerRoute>
             },
             {
                 path : 'add-camp',
@@ -71,40 +71,40 @@ const Routes = createBrowserRouter([
             },
             {
                 path : 'manage-camps',
-                element : <ManageCamps/>
+                element : <OrganizerRoute><ManageCamps/></OrganizerRoute>
             },
             {
                 path : 'camp/update/:id',
-                element : <UpdateCamp/>
+                element : <OrganizerRoute><UpdateCamp/></OrganizerRoute>
             },
             {
                 path : 'manage-registered-camps',
-                element : <ManageRegisteredCamps/>
+                element : <OrganizerRoute><ManageRegisteredCamps/></OrganizerRoute>
             },
             // Participant Paths
             {
                 path : 'analytics',
-                element : <Analytics/>
+                element : <PrivateRoute><Analytics/></PrivateRoute>
             },
             {
                 path : 'participant-profile',
-                element : <ParticipantProfile/>
+                element : <PrivateRoute><ParticipantProfile/></PrivateRoute>
             },
             {
                 path : 'registered-camps',
-                element : <RegisteredCamps/>
+                element : <PrivateRoute><RegisteredCamps/></PrivateRoute>
             },
             {
                 path : 'payment/:fees',
-                element : <Payment/>
+                element : <PrivateRoute><Payment/></PrivateRoute>
             },
             {
                 path : 'payment-history',
-                element : <PaymentHistory/>
+                element : <PrivateRoute><PaymentHistory/></PrivateRoute>
             },
             {
                 path : 'feedback',
-                element : <Feedback/>
+                element : <PrivateRoute><Feedback/></PrivateRoute>
             },
         ]
     }

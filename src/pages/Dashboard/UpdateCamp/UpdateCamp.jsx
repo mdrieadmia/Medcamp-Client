@@ -33,7 +33,6 @@ const UpdateCamp = () => {
             setLoading(false)
             navigate('/dashboard/manage-camps')
         }catch(err){
-            console.log(err);
             toast.error("Update Failed")
             setLoading(false)
         }

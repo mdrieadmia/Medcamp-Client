@@ -13,7 +13,6 @@ const PaymentHistory = () => {
         enabled : !!user,
         queryFn : async()=>{
             const {data} = await axiosSecure.get(`/payment/camp/${user?.email}`)
-            console.log(data);
             return data;
         }
     })

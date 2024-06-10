@@ -35,7 +35,6 @@ const Analytics = () => {
     if (isUserLoading) {
         return <div className="flex justify-center items-center mt-10"><ImSpinner9 className="text-3xl animate-spin text-center text-green-500" /></div>
     }
-    console.log(totalCost);
     return (
         <div>
             <Helmet>
@@ -43,7 +42,7 @@ const Analytics = () => {
             </Helmet>
             <div className="container mx-auto px-5 ">
                 <h1 className="text-4xl font-bold text-green-500 mt-10 mb-2">Welcome Back ! <span className="text-4xl font-bold text-gray-800 mb-5">{user?.displayName}</span> </h1>
-                <div className="pt-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div className="pt-10 grid grid-cols-1 xl:grid-cols-2 gap-10">
                     <div>
                         <Barchart />
                     </div>

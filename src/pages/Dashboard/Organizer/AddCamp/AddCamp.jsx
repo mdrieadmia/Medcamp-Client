@@ -16,7 +16,6 @@ const AddCamp = () => {
         const {campFees, campImage, campName, date, time, description, location, professionalName} = data || {}
         const participantCount = 0;
         const campImageURL = await imageUpload(campImage[0])
-        console.log(campImageURL);
         const campData = {
             campName, campFees, campImageURL, participantCount, date, time, location, description, professionalName
         }
