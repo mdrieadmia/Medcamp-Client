@@ -68,9 +68,10 @@ const CheckoutForm = ({registeredCamp, refetch}) => {
         }else{
             if(paymentIntent?.status === 'succeeded'){
                 setTransectionId(paymentIntent.id)
-                const updateCamp = {paymentStatus : 'Paid', confirmationStatus: 'Confirmed', participantCount : registeredCamp.participantCount+1}
+                const updateCamp = {paymentStatus : 'Paid', confirmationStatus: 'Confirmed'}
                 try{
-                    await axiosSecure.patch(`/registered-camp/${registeredCamp._id}`, updateCamp)
+                    const {data} =  await axiosSecure.patch(`/registered-camp/payment/${registeredCamp._id}`, updateCamp)
+                    console.log(data);
                     refetch()
                     const paymentCamp = {
                         campId : registeredCamp.campId,
