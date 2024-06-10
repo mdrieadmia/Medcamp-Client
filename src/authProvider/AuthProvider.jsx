@@ -111,6 +111,7 @@ const AuthProvider = ({ children }) => {
     signOutUser,
     signIn,
     createUser,
+    githubSignIn,
     updateUserProfile,
   }
 
