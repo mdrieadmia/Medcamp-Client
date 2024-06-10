@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { createContext, useEffect, useState } from 'react'
 import auth from '../firebase/firebase.config'
 import {
+  GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -20,6 +21,7 @@ const AuthProvider = ({ children }) => {
 
   // Providers
   const googleProvider = new GoogleAuthProvider()
+  const githubProvider = new GithubAuthProvider()
 
   // Register a new user
   const createUser = (email, password) => {
@@ -37,6 +39,12 @@ const AuthProvider = ({ children }) => {
   const googleSignIn = () => {
     setIsUserLoading(true)
     return signInWithPopup(auth, googleProvider)
+  }
+
+  // Signin with github
+  const githubSignIn = () => {
+    setIsUserLoading(true)
+    return signInWithPopup(auth, githubProvider)
   }
 
   // Update user data
