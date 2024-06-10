@@ -5,7 +5,7 @@ const useCamps = () => {
     const {data : camps = [], isLoading : isCampsLoading, refetch } = useQuery({
         queryKey: ['camps'],
         queryFn : async()=>{
-            const {data} = await axios.get('http://localhost:5000/camps')
+            const {data} = await axios.get('https://medcamp-server.vercel.app/camps')
             return data;
         }
     })
