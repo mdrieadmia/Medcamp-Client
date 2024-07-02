@@ -36,3 +36,21 @@ This medical camp website enables participants to join camps via a seamless onli
 ============ Technology Used ============
 
 ✅ ReactJS  ✅ Tailwind  ✅ NodeJS  ✅ ExpressJS  ✅ MongoDB  ✅ Firebase  ✅ Stripe  ✅ Material Tailwind  ✅ Recharts  ✅ React Icons etc.
+
+=========== Steps For Run This Code Locally ===========
+
+Step - 1
+
+Clone the repository : git clone https://github.com/mdrieadmia/Medcamp-Client.git
+Step - 2
+
+Navigate to the project directory : cd repository-name
+
+Step - 3
+
+Install dependencies : npm install
+
+Step - 4
+
+Run the development server : npm run dev
+
