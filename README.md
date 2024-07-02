@@ -1,5 +1,3 @@
-Assignment Category : assignment12_category_0017
-
 Project Name : MEDCAMP
 
 Live Link : https://medcamp.netlify.app
@@ -8,6 +6,9 @@ Organizer Email : riead@gmail.com
 
 Organizer Password : Riead123*
 
+Server Code : https://github.com/mdrieadmia/Medcamp-Server.git
+
+This medical camp website enables participants to join camps via a seamless online process. Firebase Authentication ensures user authenticity with two roles: Participant and Organizer. Participants can join camps by paying fees through Stripe, and all users can update their profile data. Both roles have dedicated dashboards, with Organizers able to add, update, and delete camps. Participants can view overall calculations on the analytics page, and Organizers can remove unpaid participants from camps. The website is fully responsive, ensuring accessibility across all devices.
 
 ============= Applied Features ================
  
