@@ -1,4 +1,19 @@
-Project Name : MEDCAMP
+#Project Name : MEDCAMP
+
+##Team Name: Team Binary
+-Here is the all team members list:
+
+Name:        id:
+1 Roni         2241091375
+2 Mahita     2241091379
+3 Joy           2241091374
+4 Rabby      2241091273
+5 Alongir    2241091364
+6 Riead       2241091255
+7  sufian    2233091060
+8 moshiur   2233091061
+9 Dipu         2233091253
+10 Mitu    2241091370
 
 Live Link : https://medcamp.netlify.app
 
